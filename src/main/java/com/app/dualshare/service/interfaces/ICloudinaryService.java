@@ -8,8 +8,10 @@ import java.io.IOException;
 
 public interface ICloudinaryService {
 
-    CloudinaryResponseDTO uploadFile(MultipartFile file) ;
+    CloudinaryResponseDTO uploadFile(MultipartFile file);
 
-    void deletedFile(String publicId);
+    void deletedFile(String publicId, String resourceType);
+
+
 
 }

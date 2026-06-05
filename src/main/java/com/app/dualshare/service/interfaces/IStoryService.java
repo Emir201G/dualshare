@@ -14,5 +14,6 @@ public interface IStoryService {
 
     void deleteStory(String firebaseUid, String publicId);
 
+    void expiredStories();
 
 }

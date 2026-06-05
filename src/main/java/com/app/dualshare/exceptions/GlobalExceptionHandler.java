@@ -76,4 +76,12 @@ public class GlobalExceptionHandler {
         return buildErrorResponse(noPermissionDeleteException, HttpStatus.FORBIDDEN, httpServletRequest);
     }
 
+    @ExceptionHandler(EmptyStoryListException.class)
+    public ResponseEntity<ErrorResponse> handleEmptyStoryListException(
+            EmptyStoryListException emptyStoryListException,
+            HttpServletRequest httpServletRequest
+    ) {
+        return buildErrorResponse(emptyStoryListException, HttpStatus.NO_CONTENT, httpServletRequest);
+    }
+
 }
