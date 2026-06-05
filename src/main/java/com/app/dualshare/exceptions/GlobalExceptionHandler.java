@@ -52,10 +52,28 @@ public class GlobalExceptionHandler {
         return buildErrorResponse(notFoundByUidException, HttpStatus.NOT_FOUND, httpServletRequest);
     }
 
+    @ExceptionHandler(UserNotFoundByUidException.class)
     public ResponseEntity<ErrorResponse> handleUserNotFoundByShareCode(
             UserNotFoundByShareCodeException notFoundByShareCode,
             HttpServletRequest httpServletRequest
     ) {
         return buildErrorResponse(notFoundByShareCode, HttpStatus.NOT_FOUND, httpServletRequest);
     }
+
+    @ExceptionHandler(PublicIdNotFoudException.class)
+    public ResponseEntity<ErrorResponse> handlePublicIdNotFoudException(
+            PublicIdNotFoudException notFoudException,
+            HttpServletRequest httpServletRequest
+    ) {
+        return buildErrorResponse(notFoudException, HttpStatus.NOT_FOUND, httpServletRequest);
+    }
+
+    @ExceptionHandler(NotPermissionDeleteException.class)
+    public ResponseEntity<ErrorResponse> handleNoPermissionDeleteException(
+            NotPermissionDeleteException noPermissionDeleteException,
+            HttpServletRequest httpServletRequest
+    ) {
+        return buildErrorResponse(noPermissionDeleteException, HttpStatus.FORBIDDEN, httpServletRequest);
+    }
+
 }

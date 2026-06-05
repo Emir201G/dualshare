@@ -3,6 +3,7 @@ package com.app.dualshare.service.impl;
 import com.app.dualshare.dto.CloudinaryResponseDTO;
 import com.app.dualshare.dto.StoryResponseDTO;
 import com.app.dualshare.enums.MediaType;
+import com.app.dualshare.exceptions.NotPermissionDeleteException;
 import com.app.dualshare.exceptions.UserNotFoundByUidException;
 import com.app.dualshare.mapper.StoryMapper;
 import com.app.dualshare.model.Story;
@@ -11,13 +12,11 @@ import com.app.dualshare.repository.StoryRepository;
 import com.app.dualshare.repository.UserRepository;
 import com.app.dualshare.service.interfaces.ICloudinaryService;
 import com.app.dualshare.service.interfaces.IStoryService;
-import jakarta.persistence.Table;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -71,6 +70,17 @@ public class StoryServiceImpl implements IStoryService {
 
     @Override
     public void deleteStory(String firebaseUid, String publicId) {
+
+        Story story = storyRepository.findStoriesByPublicId(publicId)
+                .orElseThrow(() -> new UserNotFoundByUidException(publicId));
+
+        if (!story.getUser().getFirebaseCode().equals(firebaseUid)) {
+            throw new NotPermissionDeleteException(firebaseUid);
+        }
+
+        cloudinaryService.deletedFile(publicId);
+
+        storyRepository.delete(story);
 
     }
 }

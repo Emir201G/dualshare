@@ -29,4 +29,14 @@ public class StoryController {
 
         return ResponseEntity.ok(storyResponseDTO);
     }
+
+    @DeleteMapping("/delete-story")
+    public ResponseEntity<String> deleteStory(@PathVariable String publicId,
+                                              Authentication authentication) {
+
+        String firebaseUid = authentication.getName();
+        storyService.deleteStory(firebaseUid, publicId);
+
+        return ResponseEntity.ok("Story delete");
+    }
 }
