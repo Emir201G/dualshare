@@ -84,4 +84,19 @@ public class GlobalExceptionHandler {
         return buildErrorResponse(emptyStoryListException, HttpStatus.NO_CONTENT, httpServletRequest);
     }
 
+    @ExceptionHandler(AlreadyFriendsException.class)
+    public ResponseEntity<ErrorResponse> handleAlreadyFriendsException(
+            AlreadyFriendsException alreadyFriendsException,
+            HttpServletRequest httpServletRequest
+    ) {
+        return buildErrorResponse(alreadyFriendsException, HttpStatus.CONFLICT, httpServletRequest);
+    }
+
+    @ExceptionHandler(FriendRequestAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponse> handleFriendRequestAlreadyExistsException(
+            FriendRequestAlreadyExistsException friendRequestAlreadyExistsException,
+            HttpServletRequest httpServletRequest
+    ) {
+        return buildErrorResponse(friendRequestAlreadyExistsException, HttpStatus.CONFLICT, httpServletRequest);
+    }
 }

@@ -14,13 +14,11 @@ import com.app.dualshare.repository.StoryRepository;
 import com.app.dualshare.repository.UserRepository;
 import com.app.dualshare.service.interfaces.ICloudinaryService;
 import com.app.dualshare.service.interfaces.IStoryService;
-import com.cloudinary.utils.ObjectUtils;
 import jakarta.transaction.Transactional;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -119,6 +117,5 @@ public class StoryServiceImpl implements IStoryService {
                 System.out.printf("Cloudinary service exception: %s%n", e.getMessage());
             }
         }
-
     }
 }

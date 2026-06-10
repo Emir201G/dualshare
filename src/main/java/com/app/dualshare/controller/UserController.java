@@ -35,18 +35,11 @@ public class UserController {
 
         String firebaseUdi = authentication.getName();
 
-        UserResponseDTO userResponseDTO = userService.getUser(firebaseUdi);
+        UserResponseDTO userResponseDTO = userService.getProfileMyUser(firebaseUdi);
 
         return ResponseEntity.ok(userResponseDTO);
     }
 
-    @PostMapping("/profile/add")
-    public ResponseEntity<FriendResponseDTO> addFriend(@RequestParam String shareCode,
-                                                       Authentication authentication) {
 
-        FriendResponseDTO friendResponseDTO = userService.addFriend(shareCode, authentication.getName());
-
-        return ResponseEntity.ok(friendResponseDTO);
-    }
 
 }

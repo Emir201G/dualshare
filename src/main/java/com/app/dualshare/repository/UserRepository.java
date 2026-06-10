@@ -14,4 +14,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByFirebaseCode(String firebaseCode);
 
     Optional<User> findByShareCode(String shareCode);
+
+
 }

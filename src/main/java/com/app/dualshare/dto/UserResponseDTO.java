@@ -14,6 +14,7 @@ public class UserResponseDTO {
     private String email;
     private String shareCode;
     private String photoUrl;
+    private String photoPublicId;
     private RoleType role;
     private String token;
     private boolean enabled;
