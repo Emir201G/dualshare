@@ -1,10 +1,7 @@
 package com.app.dualshare.service.impl;
 
 import com.app.dualshare.dto.CloudinaryResponseDTO;
-import com.app.dualshare.enums.MediaType;
 import com.app.dualshare.exceptions.CloudinaryServiceException;
-import com.app.dualshare.model.Story;
-import com.app.dualshare.repository.StoryRepository;
 import com.app.dualshare.service.interfaces.ICloudinaryService;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;

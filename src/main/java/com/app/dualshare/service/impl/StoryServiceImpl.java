@@ -14,15 +14,17 @@ import com.app.dualshare.repository.StoryRepository;
 import com.app.dualshare.repository.UserRepository;
 import com.app.dualshare.service.interfaces.ICloudinaryService;
 import com.app.dualshare.service.interfaces.IStoryService;
-import jakarta.transaction.Transactional;
+
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@Transactional(readOnly = true)
 public class StoryServiceImpl implements IStoryService {
 
     private final StoryRepository storyRepository;
@@ -80,7 +82,7 @@ public class StoryServiceImpl implements IStoryService {
 
         return storyMapper.toDTOList(stories);
     }
-
+    @Transactional
     @Override
     public void deleteStory(String firebaseUid, String publicId) {
 
@@ -97,6 +99,7 @@ public class StoryServiceImpl implements IStoryService {
 
     }
 
+    @Transactional
     @Scheduled(fixedRate = 60000)
     @Override
     public void expiredStories() {

@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 
 
 @Service
+@Transactional(readOnly = true)
 public class UserServiceImpl implements IUserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
@@ -76,6 +77,7 @@ public class UserServiceImpl implements IUserService {
         return userMapper.toResponseDTO(user);
     }
 
+    @Transactional
     @Override
     public String sendRequest(String code, String firebaseUid) {
 
@@ -103,6 +105,7 @@ public class UserServiceImpl implements IUserService {
         return "Request sent";
     }
 
+    @Transactional
     @Override
     public void updateProfilePhoto(String firebaseUid, MultipartFile file) {
 
@@ -134,6 +137,7 @@ public class UserServiceImpl implements IUserService {
         return friendMapper.toResponseDTOList(friends);
     }
 
+    @Transactional
     @Override
     public String acceptFriendRequest(String firebaseUid, String code) {
 
@@ -154,7 +158,23 @@ public class UserServiceImpl implements IUserService {
         return "Accept request sent";
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
+    @Override
+    public String rejectFriendRequest(String firebaseUid, String code) {
+
+        User receiver = userRepository.findByFirebaseCode(firebaseUid)
+                .orElseThrow(() -> new UserNotFoundByUidException(firebaseUid));
+
+        User sender = userRepository.findByShareCode(code)
+                .orElseThrow(() -> new UserNotFoundByShareCodeException(code));
+
+        FriendRequest friendship = friendRequestRepository.findBySenderAndReceiver(sender, receiver)
+                .orElseThrow(() -> new FriendRequestAlreadyExistsException(receiver.getUsername()));
+
+        friendRequestRepository.delete(friendship);
+        return "Reject request sent";
+    }
+
     @Override
     public Set<FriendRequestResponseDTO> getFriendRequests(String firebaseUid) {
 

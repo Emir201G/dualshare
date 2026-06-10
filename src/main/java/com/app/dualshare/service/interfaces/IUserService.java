@@ -18,7 +18,9 @@ public interface IUserService {
 
     Set<FriendResponseDTO> getFriends(String firebaseUid);
 
-    String acceptFriendRequest(String firebaseUid,String code);
+    String acceptFriendRequest(String firebaseUid, String code);
+
+    String rejectFriendRequest(String firebaseUid, String code);
 
     Set<FriendRequestResponseDTO> getFriendRequests(String firebaseUid);
 
