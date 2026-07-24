@@ -18,6 +18,7 @@ import com.app.dualshare.service.interfaces.IUserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -116,9 +117,9 @@ public class UserServiceImpl implements IUserService {
 
         CloudinaryResponseDTO cloudinaryResponseDTO = cloudinaryService.uploadFile(file);
 
-        user.setPhotoPublicId(cloudinaryResponseDTO.getPublicId());
+        user.setPhotoPublicId(cloudinaryResponseDTO.publicId());
 
-        user.setPhotoUrl(cloudinaryResponseDTO.getUrl());
+        user.setPhotoUrl(cloudinaryResponseDTO.url());
 
         userRepository.save(user);
 
@@ -183,5 +184,4 @@ public class UserServiceImpl implements IUserService {
                 .map(friendRequestMapper::toResponseDTO)
                 .collect(Collectors.toSet());
     }
-
 }

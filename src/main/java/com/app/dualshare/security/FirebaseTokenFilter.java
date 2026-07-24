@@ -24,35 +24,32 @@ public class FirebaseTokenFilter extends OncePerRequestFilter {
 
         String header = request.getHeader("Authorization");
 
-        // 1. Si no hay Header o no empieza con Bearer, dejamos pasar al siguiente filtro
         if (header == null || !header.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
         try {
-            // 2. Extraer el token limpio
             String token = header.substring(7);
 
-            // 3. VALIDACIÓN REAL: Verificar el token usando el SDK de Firebase Admin
             FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
-            String uid = decodedToken.getUid(); // Este es el UID único de Firebase (ej: u1_0.firebase_code)
+            String uid = decodedToken.getUid();
             String email = decodedToken.getEmail();
 
             if (uid != null) {
-                // 4. Crear el rol por defecto para Spring Security
+
                 List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_USER"));
 
-                // 5. Crear el objeto de autenticación con el UID o Email como "Principal"
+
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(uid, null, authorities);
 
-                // 6. 💡 CRÍTICO: Guardar la autenticación en el contexto de Spring
+
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
 
-        } catch (Exception e) {
-            // Si el token es viejo, trucho o expiró, devolvemos 401 Unauthorized de una
+        } catch (
+                Exception e) {
             SecurityContextHolder.clearContext();
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.setContentType("application/json");
@@ -60,7 +57,6 @@ public class FirebaseTokenFilter extends OncePerRequestFilter {
             return;
         }
 
-        // Si todo salió bien y el contexto está poblado, continúa la petición hacia el Controlador
         filterChain.doFilter(request, response);
     }
 }

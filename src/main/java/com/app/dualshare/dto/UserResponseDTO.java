@@ -5,21 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class UserResponseDTO {
-    private Long id;
 
-    private String username;
+public record UserResponseDTO(
+        Long id,
+        String username,
+        String email,
+        String shareCode,
+        String photoUrl,
+        String role,
+        boolean enabled
+) {
 
-    private String email;
-
-    private String shareCode;
-
-    private String photoUrl;
-
-    private String role;
-
-    private boolean enabled;
 }

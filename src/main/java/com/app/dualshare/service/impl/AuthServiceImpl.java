@@ -32,7 +32,7 @@ public class AuthServiceImpl implements IAuthService {
     public UserResponseDTO verifyAuthenticate(TokenRequestDTO tokenRequest) {
         try {
             FirebaseToken decodedToken = FirebaseAuth.getInstance()
-                    .verifyIdToken(tokenRequest.getFirebaseToken());
+                    .verifyIdToken(tokenRequest.firebaseToken());
 
             String email = decodedToken.getEmail();
             String username = decodedToken.getName();

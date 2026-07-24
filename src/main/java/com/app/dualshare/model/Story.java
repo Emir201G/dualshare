@@ -1,9 +1,13 @@
 package com.app.dualshare.model;
 
 import com.app.dualshare.enums.MediaType;
+import com.app.dualshare.repository.StoryRepository;
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.time.LocalDateTime;
+import java.util.Set;
+
 @Entity
 @Getter
 @Setter
@@ -15,12 +19,12 @@ public class Story {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id",nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
     @Column(name = "public_id")
     private String publicId;
     @Enumerated(EnumType.STRING)
-    @Column(name = "media_type",nullable = false)
+    @Column(name = "media_type", nullable = false)
     private MediaType mediaType;
     @Column(name = "media_url")
     private String mediaUrl;
@@ -30,4 +34,10 @@ public class Story {
     private LocalDateTime expiresAt;
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
+    @OneToMany(
+            mappedBy = "story",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private Set<StoryRecipient> recipients;
 }

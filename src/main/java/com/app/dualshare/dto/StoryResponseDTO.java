@@ -8,14 +8,14 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class StoryResponseDTO {
 
-    private Long id;
-    private String mediaUrl;
-    private MediaType mediaType;
-    private LocalDateTime createdAt;
-    private LocalDateTime expiresAt;
+public record StoryResponseDTO(
+        Long id,
+        String mediaUrl,
+        MediaType mediaType,
+        LocalDateTime createdAt,
+        LocalDateTime expiresAt
+) {
+
+
 }

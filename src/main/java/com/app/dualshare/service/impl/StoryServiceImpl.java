@@ -56,9 +56,9 @@ public class StoryServiceImpl implements IStoryService {
 
         Story story = new Story();
         story.setUser(user);
-        story.setPublicId(cloudinaryResponseDTO.getPublicId());
-        story.setMediaUrl(cloudinaryResponseDTO.getUrl());
-        story.setMediaType(cloudinaryResponseDTO.getResourceType()
+        story.setPublicId(cloudinaryResponseDTO.publicId());
+        story.setMediaUrl(cloudinaryResponseDTO.url());
+        story.setMediaType(cloudinaryResponseDTO.resourceType()
                 .equalsIgnoreCase("video") ? MediaType.VIDEO : MediaType.PHOTO);
         story.setCreatedAt(LocalDateTime.now());
         story.setExpiresAt(LocalDateTime.now().plusHours(24));
@@ -124,13 +124,8 @@ public class StoryServiceImpl implements IStoryService {
 
     @Override
     public StoryResponseDTO sendStory(String firebaseUid, String publicId) {
-        User sender = userRepository.findByFirebaseUid(firebaseUid)
-                .orElseThrow(() -> new UserNotFoundByUidException(firebaseUid));
-
-
-
-
 
         return null;
     }
+
 }

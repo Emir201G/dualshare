@@ -29,7 +29,7 @@ public class UserController {
                                                           Authentication authentication
     ) {
         String firebaseUdi = authentication.getName();
-        UserResponseDTO userResponseDTO = userService.updateUsername(firebaseUdi, usernameDTO.getUsername());
+        UserResponseDTO userResponseDTO = userService.updateUsername(firebaseUdi, usernameDTO.username());
         return ResponseEntity.ok(userResponseDTO);
     }
 

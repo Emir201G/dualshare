@@ -1,12 +1,9 @@
-    package com.app.dualshare.dto;
+package com.app.dualshare.dto;
 
-    import lombok.AllArgsConstructor;
-    import lombok.Data;
-    import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public class TokenRequestDTO {
-        private String firebaseToken;
-    }
+
+public record TokenRequestDTO(String firebaseToken) {
+}
