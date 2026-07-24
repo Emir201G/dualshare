@@ -24,4 +24,5 @@ public interface IUserService {
 
     Set<FriendRequestResponseDTO> getFriendRequests(String firebaseUid);
 
+
 }

@@ -1,4 +1,4 @@
 package com.app.dualshare.dto;
 
-public class FriendshipResponseDTO {
+public record FriendshipResponseDTO() {
 }

@@ -16,4 +16,7 @@ public interface IStoryService {
 
     void expiredStories();
 
+    StoryResponseDTO sendStory(String firebaseUid,String publicId);
+
+
 }

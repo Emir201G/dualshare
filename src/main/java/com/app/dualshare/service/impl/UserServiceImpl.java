@@ -15,11 +15,9 @@ import com.app.dualshare.repository.FriendRequestRepository;
 import com.app.dualshare.repository.UserRepository;
 import com.app.dualshare.service.interfaces.ICloudinaryService;
 import com.app.dualshare.service.interfaces.IUserService;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -58,7 +56,7 @@ public class UserServiceImpl implements IUserService {
 
         }
 
-        User user = userRepository.findByFirebaseCode(firebaseUid)
+        User user = userRepository.findByFirebaseUid(firebaseUid)
                 .orElseThrow(() -> new FirebaseAuthenticationException(firebaseUid));
 
         user.setUsername(username);
@@ -71,7 +69,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public UserResponseDTO getProfileMyUser(String firebaseUid) {
 
-        User user = userRepository.findByFirebaseCode(firebaseUid)
+        User user = userRepository.findByFirebaseUid(firebaseUid)
                 .orElseThrow(() -> new FirebaseAuthenticationException(firebaseUid));
 
         return userMapper.toResponseDTO(user);
@@ -81,7 +79,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public String sendRequest(String code, String firebaseUid) {
 
-        User sender = userRepository.findByFirebaseCode(firebaseUid)
+        User sender = userRepository.findByFirebaseUid(firebaseUid)
                 .orElseThrow(() -> new FirebaseAuthenticationException(firebaseUid));
 
         User receiver = userRepository.findByShareCode(code)
@@ -109,7 +107,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public void updateProfilePhoto(String firebaseUid, MultipartFile file) {
 
-        User user = userRepository.findByFirebaseCode(firebaseUid)
+        User user = userRepository.findByFirebaseUid(firebaseUid)
                 .orElseThrow(() -> new UserNotFoundByShareCodeException(firebaseUid));
 
         if (user.getPhotoPublicId() != null) {
@@ -129,7 +127,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public Set<FriendResponseDTO> getFriends(String firebaseUid) {
 
-        User user = userRepository.findByFirebaseCode(firebaseUid)
+        User user = userRepository.findByFirebaseUid(firebaseUid)
                 .orElseThrow(() -> new UserNotFoundByShareCodeException(firebaseUid));
 
         Set<User> friends = user.getFriends();
@@ -141,7 +139,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public String acceptFriendRequest(String firebaseUid, String code) {
 
-        User receiver = userRepository.findByFirebaseCode(firebaseUid)
+        User receiver = userRepository.findByFirebaseUid(firebaseUid)
                 .orElseThrow(() -> new UserNotFoundByUidException(firebaseUid));
 
 
@@ -162,7 +160,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public String rejectFriendRequest(String firebaseUid, String code) {
 
-        User receiver = userRepository.findByFirebaseCode(firebaseUid)
+        User receiver = userRepository.findByFirebaseUid(firebaseUid)
                 .orElseThrow(() -> new UserNotFoundByUidException(firebaseUid));
 
         User sender = userRepository.findByShareCode(code)
@@ -178,7 +176,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public Set<FriendRequestResponseDTO> getFriendRequests(String firebaseUid) {
 
-        User receiver = userRepository.findByFirebaseCode(firebaseUid)
+        User receiver = userRepository.findByFirebaseUid(firebaseUid)
                 .orElseThrow(() -> new UserNotFoundByUidException(firebaseUid));
 
         return receiver.getFriendRequests().stream()

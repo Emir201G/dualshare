@@ -52,7 +52,7 @@ public class GlobalExceptionHandler {
         return buildErrorResponse(notFoundByUidException, HttpStatus.NOT_FOUND, httpServletRequest);
     }
 
-    @ExceptionHandler(UserNotFoundByUidException.class)
+    @ExceptionHandler(UserNotFoundByShareCodeException.class)
     public ResponseEntity<ErrorResponse> handleUserNotFoundByShareCode(
             UserNotFoundByShareCodeException notFoundByShareCode,
             HttpServletRequest httpServletRequest

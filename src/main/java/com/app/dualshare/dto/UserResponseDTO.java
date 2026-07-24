@@ -10,12 +10,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserResponseDTO {
     private Long id;
+
     private String username;
+
     private String email;
+
     private String shareCode;
+
     private String photoUrl;
-    private String photoPublicId;
-    private RoleType role;
-    private String token;
+
+    private String role;
+
     private boolean enabled;
 }

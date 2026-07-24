@@ -19,7 +19,7 @@ public class FirebaseConfig {
                     .getResourceAsStream("firebase-service-account.json");
 
             if (serviceAccount == null) {
-                throw new IOException("No se encontró el archivo firebase-service-account.json en resources");
+                throw new IOException("No se encontro el archivo firebase-service-account.json en resources");
             }
 
             FirebaseOptions options = FirebaseOptions.builder()

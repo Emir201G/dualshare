@@ -21,8 +21,8 @@ public class User {
     private String username;
     @Column(unique = true)
     private String email;
-    @Column(name = "firebase_code")
-    private String firebaseCode;
+    @Column(name = "firebase_uid")
+    private String firebaseUid;
     @Column(name = "share_code")
     private String shareCode;
     @Column(name = "photo_url")

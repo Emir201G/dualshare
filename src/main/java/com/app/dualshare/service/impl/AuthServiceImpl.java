@@ -47,16 +47,18 @@ public class AuthServiceImpl implements IAuthService {
                         userNew.setShareCode(UUID.randomUUID().toString().substring(0, 8).toUpperCase());
                         userNew.setPhotoUrl(decodedToken.getPicture());
                         userNew.setEnabled(true);
-                        userNew.setFirebaseCode(decodedToken.getUid());
+                        userNew.setFirebaseUid(decodedToken.getUid());
                         return userRepository.save(userNew);
                     }
             );
 
             return userMapper.toResponseDTO(user);
-        } catch (FirebaseAuthException e) {
+        } catch (
+                FirebaseAuthException e) {
             throw new FirebaseAuthenticationException(e.getMessage());
         }
+
     }
-
-
 }
+
+

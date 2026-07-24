@@ -48,7 +48,7 @@ public class StoryServiceImpl implements IStoryService {
     @Override
     public StoryResponseDTO uploadStory(String firebaseUid, MultipartFile file) {
 
-        User user = userRepository.findByFirebaseCode(firebaseUid)
+        User user = userRepository.findByFirebaseUid(firebaseUid)
                 .orElseThrow(() -> new UserNotFoundByUidException(firebaseUid));
 
         CloudinaryResponseDTO cloudinaryResponseDTO = cloudinaryService.uploadFile(file);
@@ -71,10 +71,10 @@ public class StoryServiceImpl implements IStoryService {
     @Override
     public List<StoryResponseDTO> getStories(String firebaseUid) {
 
-        User user = userRepository.findByFirebaseCode(firebaseUid)
+        User user = userRepository.findByFirebaseUid(firebaseUid)
                 .orElseThrow(() -> new UserNotFoundByUidException(firebaseUid));
 
-        List<Story> stories = storyRepository.findByUserFirebaseCode(user.getFirebaseCode());
+        List<Story> stories = storyRepository.findByUserFirebaseUid(user.getFirebaseUid());
 
         if (stories.isEmpty()) {
             throw new EmptyStoryListException(firebaseUid);
@@ -89,7 +89,7 @@ public class StoryServiceImpl implements IStoryService {
         Story story = storyRepository.findStoriesByPublicId(publicId)
                 .orElseThrow(() -> new UserNotFoundByUidException(publicId));
 
-        if (!story.getUser().getFirebaseCode().equals(firebaseUid)) {
+        if (!story.getUser().getFirebaseUid().equals(firebaseUid)) {
             throw new NotPermissionDeleteException(firebaseUid);
         }
 
@@ -120,5 +120,17 @@ public class StoryServiceImpl implements IStoryService {
                 System.out.printf("Cloudinary service exception: %s%n", e.getMessage());
             }
         }
+    }
+
+    @Override
+    public StoryResponseDTO sendStory(String firebaseUid, String publicId) {
+        User sender = userRepository.findByFirebaseUid(firebaseUid)
+                .orElseThrow(() -> new UserNotFoundByUidException(firebaseUid));
+
+
+
+
+
+        return null;
     }
 }

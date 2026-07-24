@@ -20,4 +20,6 @@ public class AuthController {
         UserResponseDTO userResponseDTO = authService.verifyAuthenticate(tokenRequestDTO);
         return ResponseEntity.ok(userResponseDTO);
     }
+
+
 }
