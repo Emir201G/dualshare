@@ -2,7 +2,6 @@ package com.app.dualshare.controller;
 
 import com.app.dualshare.dto.TokenRequestDTO;
 import com.app.dualshare.dto.UserResponseDTO;
-import com.app.dualshare.service.impl.AuthServiceImpl;
 import com.app.dualshare.service.interfaces.IAuthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
     private final IAuthService authService;
 
-    public AuthController(AuthServiceImpl authService) {
+    public AuthController(IAuthService authService) {
         this.authService = authService;
     }
     @PostMapping("/verify")
