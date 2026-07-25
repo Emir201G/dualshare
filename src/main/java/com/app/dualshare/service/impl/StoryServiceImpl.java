@@ -82,6 +82,7 @@ public class StoryServiceImpl implements IStoryService {
 
         return storyMapper.toDTOList(stories);
     }
+
     @Transactional
     @Override
     public void deleteStory(String firebaseUid, String publicId) {

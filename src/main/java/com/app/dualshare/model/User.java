@@ -44,4 +44,6 @@ public class User {
     @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<FriendRequest> friendRequests = new HashSet<>();
     private boolean enabled;
+    @OneToMany(mappedBy ="receiver")
+    private Set<StoryRecipient> receivedStories = new HashSet<>();
 }
