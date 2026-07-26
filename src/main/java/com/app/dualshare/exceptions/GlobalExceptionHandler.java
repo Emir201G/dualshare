@@ -99,4 +99,12 @@ public class GlobalExceptionHandler {
     ) {
         return buildErrorResponse(friendRequestAlreadyExistsException, HttpStatus.CONFLICT, httpServletRequest);
     }
+
+    @ExceptionHandler(StoryNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleStoryNotFoundException(
+            StoryNotFoundException storyNotFoundException,
+            HttpServletRequest httpServletRequest
+    ) {
+        return buildErrorResponse(storyNotFoundException, HttpStatus.NOT_FOUND, httpServletRequest);
+    }
 }

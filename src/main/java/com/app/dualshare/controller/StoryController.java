@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 
 @RestController
@@ -22,11 +23,11 @@ public class StoryController {
 
     @PostMapping("/upload-story")
     public ResponseEntity<StoryResponseDTO> uploadStory(@RequestParam("storyFile") MultipartFile storyFile,
-                                                        Authentication authentication) {
+                                                        Authentication authentication, String shareCode) {
 
         String firebaseUid = authentication.getName();
 
-        StoryResponseDTO storyResponseDTO = storyService.uploadStory(firebaseUid, storyFile);
+        StoryResponseDTO storyResponseDTO = storyService.uploadStory(firebaseUid, storyFile, shareCode);
 
         return ResponseEntity.ok(storyResponseDTO);
     }

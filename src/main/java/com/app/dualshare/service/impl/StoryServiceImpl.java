@@ -1,15 +1,15 @@
 package com.app.dualshare.service.impl;
 
 import com.app.dualshare.dto.CloudinaryResponseDTO;
+import com.app.dualshare.dto.SendStoryToDTO;
 import com.app.dualshare.dto.StoryResponseDTO;
 import com.app.dualshare.enums.MediaType;
-import com.app.dualshare.exceptions.CloudinaryServiceException;
-import com.app.dualshare.exceptions.EmptyStoryListException;
-import com.app.dualshare.exceptions.NotPermissionDeleteException;
-import com.app.dualshare.exceptions.UserNotFoundByUidException;
+import com.app.dualshare.exceptions.*;
 import com.app.dualshare.mapper.StoryMapper;
 import com.app.dualshare.model.Story;
+import com.app.dualshare.model.StoryRecipient;
 import com.app.dualshare.model.User;
+import com.app.dualshare.repository.StoryRecipientRepository;
 import com.app.dualshare.repository.StoryRepository;
 import com.app.dualshare.repository.UserRepository;
 import com.app.dualshare.service.interfaces.ICloudinaryService;
@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional(readOnly = true)
@@ -30,28 +31,38 @@ public class StoryServiceImpl implements IStoryService {
     private final StoryRepository storyRepository;
     private final ICloudinaryService cloudinaryService;
     private final UserRepository userRepository;
-
     private final StoryMapper storyMapper;
+    private final StoryRecipientRepository storyRecipientRepository;
+
 
     public StoryServiceImpl(StoryRepository storyRepository,
                             ICloudinaryService cloudinaryService,
                             UserRepository userRepository,
-                            StoryMapper storyMapper
+                            StoryMapper storyMapper,
+                            StoryRecipientRepository storyRecipientRepository
     ) {
         this.storyRepository = storyRepository;
         this.cloudinaryService = cloudinaryService;
         this.userRepository = userRepository;
         this.storyMapper = storyMapper;
+        this.storyRecipientRepository = storyRecipientRepository;
+
     }
 
     @Transactional
     @Override
-    public StoryResponseDTO uploadStory(String firebaseUid, MultipartFile file) {
+    public StoryResponseDTO uploadStory(String firebaseUid, MultipartFile file, String shareCode) {
 
         User user = userRepository.findByFirebaseUid(firebaseUid)
                 .orElseThrow(() -> new UserNotFoundByUidException(firebaseUid));
 
         CloudinaryResponseDTO cloudinaryResponseDTO = cloudinaryService.uploadFile(file);
+
+        User friend = user.getFriends()
+                .stream()
+                .filter(u -> u.getShareCode().equals(shareCode))
+                .findFirst()
+                .orElseThrow(() -> new UserNotFoundByShareCodeException(shareCode));
 
 
         Story story = new Story();
@@ -64,7 +75,10 @@ public class StoryServiceImpl implements IStoryService {
         story.setExpiresAt(LocalDateTime.now().plusHours(24));
 
         storyRepository.save(story);
-
+        StoryRecipient storyRecipient = new StoryRecipient();
+        storyRecipient.setStory(story);
+        storyRecipient.setReceiver(friend);
+        storyRecipientRepository.save(storyRecipient);
         return storyMapper.toDTO(story);
     }
 
@@ -88,7 +102,7 @@ public class StoryServiceImpl implements IStoryService {
     public void deleteStory(String firebaseUid, String publicId) {
 
         Story story = storyRepository.findStoriesByPublicId(publicId)
-                .orElseThrow(() -> new UserNotFoundByUidException(publicId));
+                .orElseThrow(() -> new StoryNotFoundException(publicId));
 
         if (!story.getUser().getFirebaseUid().equals(firebaseUid)) {
             throw new NotPermissionDeleteException(firebaseUid);
@@ -123,10 +137,6 @@ public class StoryServiceImpl implements IStoryService {
         }
     }
 
-    @Override
-    public StoryResponseDTO sendStory(String firebaseUid, String publicId) {
 
-        return null;
-    }
 
 }

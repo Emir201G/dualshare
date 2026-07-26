@@ -40,6 +40,7 @@ public class AuthServiceImpl implements IAuthService {
             User user = userRepository.findByEmail(email).orElseGet(
                     () -> {
                         User userNew = new User();
+
                         userNew.setEmail(email);
                         userNew.setUsername(username);
                         userNew.setRole(roleRespository.findByRoleType(RoleType.USER)
