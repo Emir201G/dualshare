@@ -47,6 +47,6 @@ public class StoryController {
 
         String firebaseUid = authentication.getName();
 
-        return ResponseEntity.ok(storyService.getStories(firebaseUid));
+        return ResponseEntity.ok(storyService.getMyStories(firebaseUid));
     }
 }

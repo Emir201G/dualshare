@@ -14,7 +14,7 @@ public interface StoryRepository extends JpaRepository<Story, Long> {
 
     Optional<Story> findStoriesByPublicId(String publicId);
 
-    List<Story> findByUserFirebaseUid(String publicId);
+    List<Story> findByUserFirebaseUid(String firebaseUid);
 
     List<Story> findByExpiresAtBefore(LocalDateTime now);
 

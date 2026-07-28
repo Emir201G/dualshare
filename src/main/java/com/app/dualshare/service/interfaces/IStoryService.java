@@ -1,8 +1,6 @@
 package com.app.dualshare.service.interfaces;
 
-import com.app.dualshare.dto.SendStoryToDTO;
 import com.app.dualshare.dto.StoryResponseDTO;
-import com.app.dualshare.model.Story;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -11,7 +9,8 @@ public interface IStoryService {
 
     StoryResponseDTO uploadStory(String firebaseUid, MultipartFile file,String shareCode);
 
-    List<StoryResponseDTO> getStories(String firebaseUid);
+    List<StoryResponseDTO> getMyStories(String firebaseUid);
+    List<StoryResponseDTO> getStoriesRecipient(String firebaseUid);
 
     void deleteStory(String firebaseUid, String publicId);
 

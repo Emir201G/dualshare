@@ -83,7 +83,7 @@ public class StoryServiceImpl implements IStoryService {
     }
 
     @Override
-    public List<StoryResponseDTO> getStories(String firebaseUid) {
+    public List<StoryResponseDTO> getMyStories(String firebaseUid) {
 
         User user = userRepository.findByFirebaseUid(firebaseUid)
                 .orElseThrow(() -> new UserNotFoundByUidException(firebaseUid));
@@ -94,6 +94,19 @@ public class StoryServiceImpl implements IStoryService {
             throw new EmptyStoryListException(firebaseUid);
         }
 
+        return storyMapper.toDTOList(stories);
+    }
+
+    @Override
+    public List<StoryResponseDTO> getStoriesRecipient(String firebaseUid) {
+        User user = userRepository.findByFirebaseUid(firebaseUid)
+                .orElseThrow(() -> new UserNotFoundByUidException(firebaseUid));
+
+        List<StoryRecipient> recipients = storyRecipientRepository.findByReceiverFirebaseUid(user.getFirebaseUid());
+
+        List<Story> stories = recipients.stream()
+                .map(StoryRecipient::getStory)
+                .toList();
         return storyMapper.toDTOList(stories);
     }
 
@@ -136,7 +149,6 @@ public class StoryServiceImpl implements IStoryService {
             }
         }
     }
-
 
 
 }
