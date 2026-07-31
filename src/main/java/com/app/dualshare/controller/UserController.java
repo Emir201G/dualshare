@@ -76,7 +76,7 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/profile/reject-request/")
+    @DeleteMapping("/profile/reject-request")
     public ResponseEntity<?> rejectRequest(
             @RequestParam("code") String code,
             Authentication authentication
