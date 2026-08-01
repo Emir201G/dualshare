@@ -80,23 +80,7 @@ El siguiente diagrama representa el modelo de datos utilizado por la aplicación
 
 # Arquitectura del sistema
 
-```
-Android App
-        │
-        │ Firebase Login
-        ▼
-Firebase Authentication
-        │
-        │ ID Token
-        ▼
-Spring Boot API
-      │         │
-      │         └──────────► Cloudinary
-      │
-      └────────────────────► MySQL
-```
-
----
+![Arquitectura del sistema](doc/arquitectura-dualshare.svg)
 
 # Estructura del proyecto
 
