@@ -53,7 +53,7 @@ La aplicación sigue una arquitectura por capas.
 
 El siguiente diagrama representa el modelo de datos utilizado por la aplicación.
 
-![ER Diagram](docs/database-er.png)
+![ER Diagram](doc/database-er.svg)
 
 ---
 
