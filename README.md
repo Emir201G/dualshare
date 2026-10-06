@@ -224,7 +224,7 @@ FIREBASE_PRIVATE_KEY=
 
 Antes de ejecutar el proyecto es necesario tener instalado:
 
-* ☕ Java 21
+* ☕ Java 17
 * 📦 Maven
 * 🐬 MySQL
 
