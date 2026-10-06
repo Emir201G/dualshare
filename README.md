@@ -139,7 +139,7 @@ La autenticación utiliza **Google** junto con **Firebase Authentication**.
 
 Las imágenes se almacenan en **Cloudinary**, mientras que la base de datos conserva la URL correspondiente.
 
-![Flujo de subida de media](doc/subida-media.svg)
+![Flujo de subida de media](doc/subida)
 
 Este enfoque evita almacenar directamente los archivos dentro de la base de datos.
 
