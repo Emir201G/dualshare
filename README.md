@@ -25,7 +25,7 @@ El backend se encarga de la autenticación, gestión de usuarios, historias, des
 
 | Tecnología            | Utilización                |
 | --------------------- | -------------------------- |
-| ☕ Java 21             | Lenguaje principal         |
+| ☕ Java 17             | Lenguaje principal         |
 | 🌱 Spring Boot        | Desarrollo del backend     |
 | 🔐 Spring Security    | Seguridad de la API        |
 | 🗃️ Spring Data JPA   | Persistencia               |
