@@ -135,33 +135,11 @@ La autenticación utiliza **Google** junto con **Firebase Authentication**.
 
 ---
 
-## 🖼️ Flujo de subida de imágenes
+## 🖼️ Flujo de subida de imágenes y videos
 
 Las imágenes se almacenan en **Cloudinary**, mientras que la base de datos conserva la URL correspondiente.
 
-```text
-┌──────────────┐
-│   Android    │
-└──────┬───────┘
-       │
-       │ Imagen
-       ▼
-┌──────────────┐
-│   Backend    │
-└──────┬───────┘
-       │
-       │ Subida
-       ▼
-┌──────────────┐
-│  Cloudinary  │
-└──────┬───────┘
-       │
-       │ URL
-       ▼
-┌──────────────┐
-│    MySQL     │
-└──────────────┘
-```
+![Flujo de subida de media](doc/subida-de-imagenes.svg)
 
 Este enfoque evita almacenar directamente los archivos dentro de la base de datos.
 
