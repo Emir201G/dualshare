@@ -42,42 +42,9 @@ El backend se encarga de la autenticación, gestión de usuarios, historias, des
 
 La aplicación está organizada utilizando una arquitectura por capas, separando la exposición de la API, la lógica de negocio, la persistencia y las integraciones externas.
 
-![Arquitectura](docs/architecture.png)
+![Arquitectura](docs/arquitectura.svg)
 
-### Flujo general
 
-```text
-┌──────────────────┐
-│  Aplicación      │
-│     Android      │
-└────────┬─────────┘
-         │
-         │ HTTP / REST
-         ▼
-┌──────────────────┐
-│    Controller    │
-└────────┬─────────┘
-         │
-         ▼
-┌──────────────────┐
-│     Service      │
-│  Lógica negocio  │
-└────────┬─────────┘
-         │
-    ┌────┴─────┐
-    ▼          ▼
-┌─────────┐ ┌──────────────┐
-│Repository│ │  Servicios   │
-│          │ │   externos   │
-└────┬────┘ └──────┬───────┘
-     │             │
-     ▼        ┌────┴─────────────┐
-  MySQL       │                  │
-              ▼                  ▼
-          Firebase          Cloudinary
-```
-
----
 
 ## 🗃️ Modelo de datos
 
@@ -91,37 +58,7 @@ El modelo de datos representa las principales relaciones entre usuarios, histori
 
 La autenticación utiliza **Google** junto con **Firebase Authentication**.
 
-```text
-┌──────────────┐
-│   Android    │
-└──────┬───────┘
-       │
-       │ Inicio de sesión
-       ▼
-┌──────────────┐
-│   Firebase   │
-│ Authentication│
-└──────┬───────┘
-       │
-       │ ID Token
-       ▼
-┌──────────────┐
-│   Backend    │
-│  DualShare   │
-└──────┬───────┘
-       │
-       │ Verificación
-       ▼
-┌──────────────┐
-│    Firebase  │
-│  Admin SDK   │
-└──────┬───────┘
-       │
-       ▼
-┌──────────────┐
-│    MySQL     │
-└──────────────┘
-```
+![Flujo de autenticaion](doc/flujo-auth.svg)
 
 ### Proceso
 
@@ -139,7 +76,7 @@ La autenticación utiliza **Google** junto con **Firebase Authentication**.
 
 Las imágenes se almacenan en **Cloudinary**, mientras que la base de datos conserva la URL correspondiente.
 
-![Flujo de subida de media](doc/subida-media.svg)
+![Flujo de subida de media](doc/flujo-subida.svg)
 
 Este enfoque evita almacenar directamente los archivos dentro de la base de datos.
 
@@ -147,7 +84,7 @@ Este enfoque evita almacenar directamente los archivos dentro de la base de dato
 
 ## 🔄 Arquitectura del sistema
 
-![Arquitectura del sistema](doc/arquitectura-dualshare.svg)
+![Arquitectura del sistema](doc/arquitectura-sistema.svg)
 
 La aplicación Android se comunica con el backend mediante una API REST. El backend centraliza la lógica de negocio y se comunica con los servicios externos necesarios.
 
