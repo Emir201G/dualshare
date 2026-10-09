@@ -42,7 +42,7 @@ El backend se encarga de la autenticación, gestión de usuarios, historias, des
 
 La aplicación está organizada utilizando una arquitectura por capas, separando la exposición de la API, la lógica de negocio, la persistencia y las integraciones externas.
 
-![Arquitectura](docs/arquitectura.svg)
+![Arquitectura](doc/arquitectura.svg)
 
 
 
